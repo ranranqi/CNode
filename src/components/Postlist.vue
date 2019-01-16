@@ -3,10 +3,13 @@
         <div>
             <img src="" alt="">
         </div>
-        <div>
+        <div class="postlist">
             <ul>
                 <li v-for="post in posts">
                     <img :src="post.author.avatar_url" alt="">
+                    <span>
+                        {{post.reply_count}}
+                    </span>/{{post.visit_count}}
                 </li>
             </ul>
         </div>
@@ -38,6 +41,10 @@ export default {
 }
 </script>
 <style scoped>
-
+.postlist img{
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
 </style>
 
