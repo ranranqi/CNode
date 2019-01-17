@@ -1,41 +1,43 @@
 <template>
-  <div class="PostList">
-    <div class="loading" v-if="isloading">
-      <img src="../assets/loading.gif" alt>
+    <div class="PostList">
+    
+        <div class="posts">
+            <ul>
+                <li>
+                <div class="toobar">
+                    <span>全部</span>
+                    <span>精华</span>
+                    <span>分享</span>
+                    <span>问答</span>
+                    <span>招聘</span>
+                </div>
+                </li>
+                <li v-for="post in posts">
+                <!-- 头像 -->
+                <img :src="post.author.avatar_url" alt>
+                <!-- 恢复浏览量 -->
+                <span class="allcount">
+                    <span class="reply_count">{{post.reply_count}}</span>
+                    /{{post.visit_count}}
+                </span>
+                <!-- 帖子的分类 -->
+                <span
+                    :class="[{put_good:(post.good == true),put_top:(post.top == true),'topiclist-tab':(post.good != true && post.top != true)}]"
+                >
+                    <span>{{post | tabFormatter}}</span>
+                </span>
+                <!-- 标题 -->
+                <span>{{post.title}}</span>
+                <!-- 最终恢复时间 -->
+                <span class="last_reply">{{post.last_reply_at | formatData}}</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="loading" v-if="isloading">
+            <img src="../assets/loading-2.gif" alt>
+        </div>
     </div>
-    <div class="posts">
-      <ul>
-        <li>
-          <div class="toobar">
-            <span>全部</span>
-            <span>精华</span>
-            <span>分享</span>
-            <span>问答</span>
-            <span>招聘</span>
-          </div>
-        </li>
-        <li v-for="post in posts">
-          <!-- 头像 -->
-          <img :src="post.author.avatar_url" alt>
-          <!-- 恢复浏览量 -->
-          <span class="allcount">
-            <span class="reply_count">{{post.reply_count}}</span>
-            /{{post.visit_count}}
-          </span>
-          <!-- 帖子的分类 -->
-          <span
-            :class="[{put_good:(post.good == true),put_top:(post.top == true),'topiclist-tab':(post.good != true && post.top != true)}]"
-          >
-            <span>{{post | tabFormatter}}</span>
-          </span>
-          <!-- 标题 -->
-          <span>{{post.title}}</span>
-          <!-- 最终恢复时间 -->
-          <span class="last_reply">{{post.last_reply_at | formatData}}</span>
-        </li>
-      </ul>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -53,7 +55,7 @@ export default {
         .get("https://cnodejs.org/api/v1/topics", {
           params: {
             page: 1,
-            limit: 15
+            limit: 20
           }
         })
         .then(response => {
@@ -156,7 +158,6 @@ li span {
 .last_reply {
   text-align: right;
   min-width: 50px;
-  display: inline-block;
   white-space: nowrap;
   float: right;
   color: #778087;
@@ -190,8 +191,13 @@ a:hover {
 }
 
 .loading {
-  text-align: center;
-  padding-top: 300px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loading img{
+    background: #e1e1e1;
 }
 </style>
 
