@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Header/>
-    <Postlist/>
+    <div class="main">
+      <Postlist/>
+    </div>
   </div>
 </template>
 
@@ -21,5 +23,9 @@ export default {
 *{
   margin: 0;
   padding: 0;
+}
+.main{
+  width: 80%;
+  margin: 0 auto;
 }
 </style>
