@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="article">
     <div class="loading" v-if="isloading">
       <img src="../assets/loading-2.gif" alt>
     </div>
@@ -15,6 +15,21 @@
           <li>• {{post.visit_count}}次浏览</li>
           <li>•来自{{post | tabFormatter}}</li>
         </ul>
+        <div v-html="post.content" class="topic_content"></div>
+      </div>
+
+      <div id="reply">
+        <div class="topbar">回复</div>
+        <div v-for="(reply,index)  in post.replies" class="replySec">
+          <div class="replyUp">
+            <img :src="reply.author.avatar_url" alt>
+            <span>{{reply.author.loginname}}</span>
+            <span>{{index+1}}楼</span>
+            <span v-if="reply.ups.length>0">☝ {{reply.ups.length}}</span>
+            <span v-else></span>
+          </div>
+          <p v-html="reply.content"></p>
+        </div>
       </div>
     </div>
   </div>
@@ -52,6 +67,7 @@ export default {
 </script>
 
 <style>
+@import url("../assets/markdown-github.css");
 .topbar {
   padding: 10px;
   background-color: #f6f6f6;
@@ -98,8 +114,8 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.loading img{
-    background: #fff;
+.loading img {
+  background: #fff;
 }
 
 .replyUp a:nth-of-type(2) {
@@ -135,6 +151,6 @@ export default {
 }
 
 .markdown-text img {
-  width: 92% !important;
+  width: 80% !important;
 }
 </style>
