@@ -27,7 +27,17 @@
                     <span>{{post | tabFormatter}}</span>
                 </span>
                 <!-- 标题 -->
-                <span>{{post.title}}</span>
+                <router-link :to="{
+                name:'post_content',
+                params:{
+                  id:post.id,
+                  name:post.author.loginname
+                }
+                }">
+                  <span>
+                    {{post.title}}
+                  </span>
+                </router-link>
                 <!-- 最终恢复时间 -->
                 <span class="last_reply">{{post.last_reply_at | formatData}}</span>
                 </li>
@@ -55,7 +65,7 @@ export default {
         .get("https://cnodejs.org/api/v1/topics", {
           params: {
             page: 1,
-            limit: 20
+            limit: 15
           }
         })
         .then(response => {
@@ -197,7 +207,9 @@ a:hover {
   align-items: center;
 }
 .loading img{
-    background: #e1e1e1;
+  width: 128px;
+  height: 128px;
+  background: #e1e1e1;
 }
 </style>
 
