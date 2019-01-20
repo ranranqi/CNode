@@ -79,6 +79,11 @@ export default {
   beforeMount: function() {
     this.isloading = true;
     this.getArticaleData();
+  },
+  watch:{
+    '$route'(to,from){
+      this.getArticaleData()
+    }
   }
 };
 </script>
