@@ -41,6 +41,9 @@
                 <!-- 最终恢复时间 -->
                 <span class="last_reply">{{post.last_reply_at | formatData}}</span>
                 </li>
+                <li>
+                   <Pagination></Pagination>
+                </li>
             </ul>
         </div>
 
@@ -51,13 +54,17 @@
 </template>
 
 <script>
+ import Pagination from './Pagination'
 export default {
   name: "Postlist",
   data() {
     return {
       isloading: false,
       posts: []
-    };
+    }
+  },
+  components:{
+    Pagination
   },
   methods: {
     getData() {
