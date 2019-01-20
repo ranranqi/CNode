@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Postlist from '../components/Postlist'
 import Article from '../components/Article'
 import UserInfo from '../components/UserInfo'
+import SilderBar from '../components/SilderBar'
 
 Vue.use(Router)
 
@@ -17,9 +18,10 @@ export default new Router({
     },
     {
       name: 'post_content',
-      path: '/topic/:id',
+      path: '/topic/:id&&author=:name',
       components:{
-        main: Article
+        main: Article,
+        silderBar: SilderBar
       }
     },
     {
