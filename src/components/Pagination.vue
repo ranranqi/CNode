@@ -1,14 +1,15 @@
 <template>
   <div class="pagination">
-    <button>首页</button>
-    <button>上一页</button>
+    <button @click="changeBtn">首页</button>
+    <button @click="changeBtn">上一页</button>
     <button v-if="jduge">......</button>
     <button v-for="btn in pagebtn" :class="[{currentPage:btn == currentpage},'pagebtn']" @click="changeBtn(btn)">{{btn}}</button>
-    <button>下一页</button>
+    <button @click="changeBtn">下一页</button>
   </div>
 </template>
 
 <script>
+ import $ from 'jquery'
 export default {
   name: "Pagination",
   data(){
@@ -20,12 +21,31 @@ export default {
   },
   methods:{
       changeBtn(page){
+          if(typeof page != 'number'){
+              switch(page.target.innerText){
+                  case '上一页':
+                    $('button.currentPage').prev().click();
+                    break;
+                  case '下一页':
+                    $('button.currentPage').next().click();
+                    break;
+                  case '首页':
+                    this.pagebtn = [1,2,3,4,5,'......']
+                    this.changeBtn(1)
+                    break;
+                  default:
+                    break;
+              }
+              return
+          }
           this.currentpage = page
+
           if(page > 4){
               this.jduge = true
           }else{
               this.jduge = false
           }
+          
           if(page == this.pagebtn[4]){
               this.pagebtn.shift()  //移除数组第一个元素
               this.pagebtn.splice(4,0,this.pagebtn[3]+1)  //往数组后添加一个数
