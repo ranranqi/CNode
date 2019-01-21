@@ -2,7 +2,7 @@
   <div class="pagination">
     <button @click="changeBtn">首页</button>
     <button @click="changeBtn">上一页</button>
-    <button v-if="jduge">......</button>
+    <button v-if="jduge" class="pagebtn">......</button>
     <button v-for="btn in pagebtn" :class="[{currentPage:btn == currentpage},'pagebtn']" @click="changeBtn(btn)">{{btn}}</button>
     <button @click="changeBtn">下一页</button>
   </div>
@@ -45,7 +45,7 @@ export default {
           }else{
               this.jduge = false
           }
-          
+
           if(page == this.pagebtn[4]){
               this.pagebtn.shift()  //移除数组第一个元素
               this.pagebtn.splice(4,0,this.pagebtn[3]+1)  //往数组后添加一个数
@@ -55,6 +55,7 @@ export default {
               //移除最后一个数字
               this.pagebtn.splice(5,1)
           }
+          this.$emit('handle',this.currentpage)
       }
   }
 };

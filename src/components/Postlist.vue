@@ -41,8 +41,9 @@
                 <!-- 最终恢复时间 -->
                 <span class="last_reply">{{post.last_reply_at | formatData}}</span>
                 </li>
+                <!-- 分页 -->
                 <li>
-                   <Pagination></Pagination>
+                   <Pagination @handle="renderList"></Pagination>
                 </li>
             </ul>
         </div>
@@ -60,7 +61,8 @@ export default {
   data() {
     return {
       isloading: false,
-      posts: []
+      posts: [],
+      postpage: 1
     }
   },
   components:{
@@ -71,7 +73,7 @@ export default {
       this.$http
         .get("https://cnodejs.org/api/v1/topics", {
           params: {
-            page: 1,
+            page: this.postpage,
             limit: 15
           }
         })
@@ -82,6 +84,10 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    renderList(value){
+      this.postpage = value
+      this.getData()
     }
   },
   beforeMount() {
