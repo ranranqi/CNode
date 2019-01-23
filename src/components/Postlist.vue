@@ -74,7 +74,7 @@ export default {
         .get("https://cnodejs.org/api/v1/topics", {
           params: {
             page: this.postpage,
-            limit: 15
+            limit: 16
           }
         })
         .then(response => {
